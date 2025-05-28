@@ -1,0 +1,315 @@
+
+Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+
+module [options] sub-command [args ...]
+
+Help sub-commands:
+
+
+  help                              prints this message
+  help                module [...]  print help message from module(s)
+
+Loading/Unloading sub-commands:
+
+
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not
+                                    found
+  del | unload        module [...]  Remove module(s), do not complain if not
+                                    found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of
+                                    modules.
+  update                            reload all currently loaded modules.
+
+Listing / Searching sub-commands:
+
+
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the
+                                    pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain
+                                    "string".
+  category | cat                    List all categories
+  category | cat      s1 s2 ...     List all categories that match the
+                                    pattern and display their modules
+  overview | ov                     List all available modules by short
+                                    names with number of versions
+  overview | ov       string        List available modules by short names
+                                    with number of versions that contain
+                                    "string"
+  spider                            List all possible modules
+  spider              module        List all possible version of that module
+                                    file
+  spider              string        List all module that contain the
+                                    "string".
+  spider              name/version  Detailed information about that version
+                                    of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain
+                                    "string".
+
+Searching with Lmod:
+
+
+  All searching (spider, list, avail, keyword) support regular expressions:
+  
+
+  -r spider           '^p'          Finds all the modules that start with
+                                    `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in
+                                    their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in
+                                    their name.
+
+Handling a collection of modules:
+
+
+  save | s                          Save the current list of modules to a
+                                    user defined "default" collection.
+  save | s            name          Save the current list of modules to
+                                    "name" collection.
+  reset                             The same as "restore system"
+  restore | r                       Restore modules from the user's
+                                    "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+  describe | mcc      name          Describe the contents of a module
+                                    collection.
+  disable             name          Disable (i.e. remove) a collection.
+
+Deprecated commands:
+
+
+  getdefault          [name]        load name collection of modules or
+                                    user's "default" if no name given.
+                                    ===> Use "restore" instead <====
+  setdefault          [name]        Save current list of modules to name if
+                                    given, otherwise save as the default
+                                    list for you the user.
+                                    ===> Use "save" instead. <====
+
+Miscellaneous sub-commands:
+
+
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be
+                                    loaded
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua
+                                    table.
+
+Important Environment Variables:
+
+
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
+                                    properties and warning in color.
+
+
+Lmod Web Sites
+
+  Documentation:    https://lmod.readthedocs.org
+  GitHub:           https://github.com/TACC/Lmod
+  SourceForge:      https://lmod.sf.net
+  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+
+
+Modules based on Lua: Version 8.7.48 2024-08-19 16:18 -06:00
+    by Robert McLay mclay@tacc.utexas.edu
+
+module [options] sub-command [args ...]
+
+Help sub-commands:
+
+
+  help                              prints this message
+  help                module [...]  print help message from module(s)
+
+Loading/Unloading sub-commands:
+
+
+  load | add          module [...]  load module(s)
+  try-load | try-add  module [...]  Add module(s), do not complain if not
+                                    found
+  del | unload        module [...]  Remove module(s), do not complain if not
+                                    found
+  swap | sw | switch  m1 m2         unload m1 and load m2
+  purge                             unload all modules
+  refresh                           reload aliases from current list of
+                                    modules.
+  update                            reload all currently loaded modules.
+
+Listing / Searching sub-commands:
+
+
+  list                              List loaded modules
+  list                s1 s2 ...     List loaded modules that match the
+                                    pattern
+  avail | av                        List available modules
+  avail | av          string        List available modules that contain
+                                    "string".
+  category | cat                    List all categories
+  category | cat      s1 s2 ...     List all categories that match the
+                                    pattern and display their modules
+  overview | ov                     List all available modules by short
+                                    names with number of versions
+  overview | ov       string        List available modules by short names
+                                    with number of versions that contain
+                                    "string"
+  spider                            List all possible modules
+  spider              module        List all possible version of that module
+                                    file
+  spider              string        List all module that contain the
+                                    "string".
+  spider              name/version  Detailed information about that version
+                                    of the module.
+  whatis              module        Print whatis information about module
+  keyword | key       string        Search all name and whatis that contain
+                                    "string".
+
+Searching with Lmod:
+
+
+  All searching (spider, list, avail, keyword) support regular expressions:
+  
+
+  -r spider           '^p'          Finds all the modules that start with
+                                    `p' or `P'
+  -r spider           mpi           Finds all modules that have "mpi" in
+                                    their name.
+  -r spider           'mpi$         Finds all modules that end with "mpi" in
+                                    their name.
+
+Handling a collection of modules:
+
+
+  save | s                          Save the current list of modules to a
+                                    user defined "default" collection.
+  save | s            name          Save the current list of modules to
+                                    "name" collection.
+  reset                             The same as "restore system"
+  restore | r                       Restore modules from the user's
+                                    "default" or system default.
+  restore | r         name          Restore modules from "name" collection.
+  restore             system        Restore module state to system defaults.
+  savelist                          List of saved collections.
+  describe | mcc      name          Describe the contents of a module
+                                    collection.
+  disable             name          Disable (i.e. remove) a collection.
+
+Deprecated commands:
+
+
+  getdefault          [name]        load name collection of modules or
+                                    user's "default" if no name given.
+                                    ===> Use "restore" instead <====
+  setdefault          [name]        Save current list of modules to name if
+                                    given, otherwise save as the default
+                                    list for you the user.
+                                    ===> Use "save" instead. <====
+
+Miscellaneous sub-commands:
+
+
+  is-loaded           modulefile    return a true status if module is loaded
+  is-avail            modulefile    return a true status if module can be
+                                    loaded
+  show                modulefile    show the commands in the module file.
+  use [-a]            path          Prepend or Append path to MODULEPATH.
+  unuse               path          remove path from MODULEPATH.
+  tablelist                         output list of active modules as a lua
+                                    table.
+
+Important Environment Variables:
+
+
+  LMOD_COLORIZE                     If defined to be "YES" then Lmod prints
+                                    properties and warning in color.
+
+
+Lmod Web Sites
+
+  Documentation:    https://lmod.readthedocs.org
+  GitHub:           https://github.com/TACC/Lmod
+  SourceForge:      https://lmod.sf.net
+  TACC Homepage:    https://www.tacc.utexas.edu/research-development/tacc-projects/lmod
+
+  To report a bug please read https://lmod.readthedocs.io/en/latest/075_bug_reporting.html
+
+2025-05-20 12:09:38,241 - datasets - INFO - PyTorch version 2.6.0 available.
+2025-05-20 12:09:38,243 - datasets - INFO - Polars version 1.24.0 available.
+2025-05-20 12:09:39,439 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-05-20 12:09:39,453 - faiss.loader - INFO - Successfully loaded faiss with AVX512 support.
+2025-05-20 12:09:39,458 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+/home/h5/inbe405h/env/lib64/python3.9/site-packages/networkx/utils/backends.py:135: RuntimeWarning: networkx backend defined more than once: nx-loopback
+  backends.update(_get_backends("networkx.backends"))
+2025-05-20 12:09:40,605 - RAGENT_Runner - INFO - Initializing hybrid retriever with alpha=0.7...
+2025-05-20 12:09:40,638 - haystack.modeling.utils - INFO - Using devices: CUDA:0 - Number of GPUs: 1
+2025-05-20 12:09:40,638 - haystack.nodes.retriever.dense - INFO - Init retriever using embeddings of model intfloat/e5-large-v2
+2025-05-20 12:09:40,642 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: intfloat/e5-large-v2
+2025-05-20 12:09:43,017 - RAGENT_Runner - INFO - Initializing enhanced RAGent with n=0.5...
+Traceback (most recent call last):
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/utils/_http.py", line 409, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/tiiuae/falcon-3-10b-instruct/resolve/main/tokenizer_config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/transformers/utils/hub.py", line 342, in cached_file
+    resolved_file = hf_hub_download(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 969, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 1486, in _raise_on_head_call_error
+    raise head_call_error
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 280, in _request_wrapper
+    response = _request_wrapper(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/file_download.py", line 304, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/huggingface_hub/utils/_http.py", line 458, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-682c54e7-1a93f0fd0efb28361941a239;263bfd02-f1b6-4a34-b50e-24cf43250acc)
+
+Repository Not Found for url: https://huggingface.co/tiiuae/falcon-3-10b-instruct/resolve/main/tokenizer_config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/h5/inbe405h/LiveRAG/run_RAGent.py", line 382, in <module>
+    main()
+  File "/home/h5/inbe405h/LiveRAG/run_RAGent.py", line 234, in main
+    ragent = RAGENT(retriever, agent_model=args.model, n=args.n)
+  File "/home/h5/inbe405h/LiveRAG/RAGent.py", line 665, in __init__
+    self.agent1 = LLMAgent(agent_model)  # Predictor
+  File "/home/h5/inbe405h/LiveRAG/local_agent.py", line 35, in __init__
+    self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/transformers/models/auto/tokenization_auto.py", line 881, in from_pretrained
+    tokenizer_config = get_tokenizer_config(pretrained_model_name_or_path, **kwargs)
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/transformers/models/auto/tokenization_auto.py", line 713, in get_tokenizer_config
+    resolved_config_file = cached_file(
+  File "/home/h5/inbe405h/env/lib64/python3.9/site-packages/transformers/utils/hub.py", line 365, in cached_file
+    raise EnvironmentError(
+OSError: tiiuae/falcon-3-10b-instruct is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `huggingface-cli login` or by passing `token=<your_token>`

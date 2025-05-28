@@ -1,0 +1,14 @@
+/home/h5/inbe405h/bm25_env/lib64/python3.9/site-packages/bm25s/scoring.py:108: RuntimeWarning: invalid value encountered in scalar divide
+  return tf_array / (k1 * ((1 - b) + b * l_d / l_avg) + tf_array)
+Traceback (most recent call last):
+  File "/home/h5/inbe405h/LiveRAG/bm25_retrieval.py", line 115, in <module>
+    bm25 = build_and_persist_bm25(documents, PERSIST_DIR)
+  File "/home/h5/inbe405h/LiveRAG/bm25_retrieval.py", line 81, in build_and_persist_bm25
+    retriever = BM25Retriever.from_defaults(
+  File "/home/h5/inbe405h/bm25_env/lib64/python3.9/site-packages/llama_index/retrievers/bm25/base.py", line 142, in from_defaults
+    return cls(
+  File "/home/h5/inbe405h/bm25_env/lib64/python3.9/site-packages/llama_index/retrievers/bm25/base.py", line 99, in __init__
+    self.bm25.index(corpus_tokens, show_progress=verbose)
+  File "/home/h5/inbe405h/bm25_env/lib64/python3.9/site-packages/bm25s/__init__.py", line 501, in index
+    vocab_dict[""] = max(vocab_dict.values()) + 1
+ValueError: max() arg is an empty sequence
