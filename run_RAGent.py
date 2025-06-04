@@ -5,10 +5,12 @@ import datetime
 import os
 from tqdm import tqdm
 import logging
-
+import plyvel
 from config import (
     DATA_DIR,
-    DOC_INDEX_DIR,
+    E5_INDEX_DIR,
+    BM25_INDEX_DIR,
+    DB_PATH,
     EMBEDDING_MODEL,
     MODEL_FORMAT,
     EMBEDDING_DIM,
@@ -183,6 +185,7 @@ def write_result_to_json(result, output_file):
 
 
 def main():
+    db = plyvel.DB(DB_PATH, create_if_missing=False)
     parser = argparse.ArgumentParser(
         description="Enhanced RAGent with Hybrid Retrieval"
     )
@@ -227,7 +230,7 @@ def main():
     # Initialize the hybrid retriever
     logger.info(f"Initializing hybrid retriever with alpha={args.alpha}...")
     print(f"calling Retriever")
-    retriever = Retriever(DATA_DIR,DOC_INDEX_DIR,top_k=args.top_k)
+    retriever = Retriever(E5_INDEX_DIR,BM25_INDEX_DIR,top_k=args.top_k)
     print("retriever: ", retriever)
     # Initialize RAGent
     logger.info(f"Initializing enhanced RAGent with n={args.n}...")
@@ -246,8 +249,8 @@ def main():
 
         try:
             # Process the query
-            answer, debug_info = ragent.answer_query(args.single_question)
-
+            answer, debug_info = ragent.answer_query(args.single_question,db)
+            
             # Calculate processing time
             process_time = time.time() - start_time
 
@@ -307,8 +310,9 @@ def main():
 
         try:
             # Process the query
-            answer, debug_info = ragent.answer_query(item["question"])
-
+            
+            answer, debug_info = ragent.answer_query(item["question"],db)
+            
             # Calculate processing time
             process_time = time.time() - start_time
 
@@ -376,7 +380,7 @@ def main():
         avg_filtered = sum(r["filtered_count"] for r in results) / len(results)
         logger.info(f"Average processing time: {avg_time:.2f} seconds")
         logger.info(f"Average filtered documents: {avg_filtered:.1f}")
-
+    db.close()  
 
 if __name__ == "__main__":
     main()
