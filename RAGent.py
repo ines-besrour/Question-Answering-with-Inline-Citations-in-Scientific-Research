@@ -4,7 +4,10 @@ import re
 import copy
 import logging
 from typing import List, Dict, Tuple, Any
-
+import zlib
+import plyvel
+import base64
+import time
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
@@ -12,7 +15,9 @@ logging.basicConfig(
     handlers=[logging.FileHandler("ragent.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger("RAGENT")
-
+from config import (
+    DB_PATH
+)
 
 class EnhancedAgent4:
     """
@@ -934,7 +939,7 @@ Follow-up Answer (with citations):"""
 
         return supporting_passages
 
-    def answer_query(self, query, choices=None):
+    def answer_query(self, query, db, choices=None):
         """Process a query using the enhanced RAGent framework with improved claim analysis and follow-up handling."""
         logger.info(f"Processing query: {query}")
 
@@ -944,14 +949,15 @@ Follow-up Answer (with citations):"""
             query, top_k=5
         )  # Returns [(text, id), ...]
         logger.info(f"Retrieved {len(retrieved_docs)} documents")
-        print("Retrieved documents:", retrieved_docs)
         # Step 2: Agent-1 generates answers for each document
         logger.info("Agent-1 generating answers for each document...")
         doc_answers = []
-        
-        for doc_id, doc_text, _ in tqdm(retrieved_docs):
+        for document in retrieved_docs:
+            doc_id = document['id']
+            doc_text= document['abstract']
             prompt = self._create_agent1_prompt(query, doc_text)
             answer = self.agent1.generate(prompt)
+            print(f"Document ID: {doc_id}, abstract text: {doc_text}")
             doc_answers.append((doc_text, doc_id, answer))
 
         # Step 3: Agent-2 evaluates and scores each document
@@ -982,9 +988,17 @@ Follow-up Answer (with citations):"""
 
         # Sort by score in descending order (crucial for performance)
         filtered_docs.sort(key=lambda x: x[2], reverse=True)
-        filtered_docs_no_score = [
-            (doc_text, doc_id) for doc_text, doc_id, _ in filtered_docs
-        ]
+        filtered_docs_no_score=[]
+        
+        for doc_text, doc_id, _ in filtered_docs:
+            value = db.get(doc_id.encode("utf-8"))
+
+            if value:
+                filtered_docs_no_score.append((value.decode('utf-8'), doc_id))
+            else:
+                filtered_docs_no_score.append((doc_text, doc_id))
+          
+       
         logger.info(f"Filtered to {len(filtered_docs)} documents")
 
         # Step 6: Agent-3 generates answer with citations
