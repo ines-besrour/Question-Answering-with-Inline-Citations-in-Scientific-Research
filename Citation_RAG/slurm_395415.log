@@ -1,0 +1,193 @@
+🚀 Starting Citation RAG System with SLURM
+Job ID: 395415
+Node: c153
+==========================================
+✅ Cache directories configured:
+   HF_DATASETS_CACHE: /data/horse/ws/jihe529c-main-rag/cache/hf_datasets
+   TRANSFORMERS_CACHE: /data/horse/ws/jihe529c-main-rag/cache/hf_models
+   HF_HOME: /data/horse/ws/jihe529c-main-rag/cache/huggingface
+   TORCH_HOME: /data/horse/ws/jihe529c-main-rag/cache/torch
+✅ Directories created
+📦 Loading modules...
+Modules GCCcore/12.3.0, zlib/1.2.13, binutils/2.40, GCC/12.3.0, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, GCC/12.3.0, zlib/1.2.13, binutils/2.40, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, ncurses/6.4, OpenMPI/4.1.5, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, magma/2.7.2-CUDA-12.1.1, PyTorch/2.1.2-CUDA-12.1.1 and 76 dependencies unloaded.
+Modules GCCcore/12.3.0, zlib/1.2.13, binutils/2.40, GCC/12.3.0, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, zlib/1.2.13, binutils/2.40, libevent/2.1.12, ncurses/6.4, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, ncurses/6.4, GCC/12.3.0, ncurses/6.4, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, OpenMPI/4.1.5, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, binutils/2.40, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1 and 14 dependencies loaded.
+Module PyTorch/2.1.2-CUDA-12.1.1 and 68 dependencies unloaded.
+Module PyTorch/2.1.2-CUDA-12.1.1 and 68 dependencies loaded.
+✅ Modules loaded
+🔧 Activating environment...
+✅ Environment activated
+📥 Installing dependencies...
+✅ Dependencies ready
+🎯 Run parameters:
+   Model: tiiuae/Falcon3-10B-Instruct
+   N (judge bar): 0.5
+   Top K: 5
+   Retriever: hybrid
+
+🧪 Test 1: Single question with citation RAG...
+/data/horse/ws/jihe529c-main-rag/BM25/Question-Answering-with-Inline-Citations-in-Scientific-Research/new_env/lib/python3.11/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2025-06-06 05:29:33,194 - faiss.loader - INFO - Loading faiss with AVX512 support.
+2025-06-06 05:29:33,212 - faiss.loader - INFO - Successfully loaded faiss with AVX512 support.
+2025-06-06 05:29:33,216 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+2025-06-06 05:29:33,518 - Enhanced_4Agent_RAG - INFO - Opening database at /data/horse/ws/inbe405h-unarxive/full_text_db...
+2025-06-06 05:29:33,688 - Enhanced_4Agent_RAG - INFO - ✅ Database opened successfully
+2025-06-06 05:29:33,689 - Enhanced_4Agent_RAG - INFO - 🔍 Initializing hybrid retriever...
+2025-06-06 05:29:33,689 - haystack_retriever - INFO - 🔄 Loading Haystack retriever from /data/horse/ws/inbe405h-unarxive/test_index
+2025-06-06 05:29:33,838 - haystack_retriever - INFO - 🔄 Loading E5 model (this may take time on first load)...
+2025-06-06 05:29:33,839 - haystack.modeling.utils - INFO - Using devices: CUDA:0 - Number of GPUs: 1
+2025-06-06 05:29:33,839 - haystack.nodes.retriever.dense - INFO - Init retriever using embeddings of model intfloat/e5-large-v2
+2025-06-06 05:29:33,840 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: intfloat/e5-large-v2
+2025-06-06 05:29:38,907 - haystack_retriever - INFO - ✅ Haystack retriever initialized
+2025-06-06 05:29:38,907 - hybrid_retriever - INFO - 🚀 Attempting to load BM25 index into memory...
+2025-06-06 05:29:38,910 - hybrid_retriever - WARNING - ❌ llama_index.retrievers.bm25 not available
+2025-06-06 05:29:38,910 - hybrid_retriever - INFO - 🔄 Will use subprocess method instead
+2025-06-06 05:29:38,910 - Enhanced_4Agent_RAG - INFO - Initializing enhanced 4-agent RAG with n=0.5, max_workers=6...
+2025-06-06 05:29:39,631 - accelerate.utils.modeling - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Initializing LLMAgent with model: tiiuae/Falcon3-10B-Instruct
+Loading tokenizer...
+Using bfloat16 precision
+Loading model...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:03<00:13,  3.46s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:06<00:10,  3.42s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:10<00:07,  3.56s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:14<00:03,  3.52s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:15<00:00,  2.60s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:15<00:00,  3.00s/it]
+2025-06-06 05:29:55,683 - accelerate.utils.modeling - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Model loaded on cuda
+Initializing LLMAgent with model: tiiuae/Falcon3-10B-Instruct
+Loading tokenizer...
+Using bfloat16 precision
+Loading model...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.84s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:08,  2.94s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:09<00:06,  3.10s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:12<00:03,  3.05s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.24s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.58s/it]
+2025-06-06 05:30:09,698 - accelerate.utils.modeling - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Model loaded on cuda
+Initializing LLMAgent with model: tiiuae/Falcon3-10B-Instruct
+Loading tokenizer...
+Using bfloat16 precision
+Loading model...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.98s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:08,  2.98s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:08<00:06,  3.01s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:11<00:02,  2.99s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.21s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:12<00:00,  2.56s/it]
+2025-06-06 05:30:23,864 - accelerate.utils.modeling - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Model loaded on cuda
+Initializing LLMAgent with model: tiiuae/Falcon3-10B-Instruct
+Loading tokenizer...
+Using bfloat16 precision
+Loading model...
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:11,  2.84s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:05<00:08,  2.85s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:17<00:13,  6.89s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:21<00:05,  5.60s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  3.88s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:21<00:00,  4.37s/it]
+2025-06-06 05:30:46,051 - Enhanced_4Agent_RAG - INFO - Using local LLM agents with model tiiuae/Falcon3-10B-Instruct
+2025-06-06 05:30:46,051 - Enhanced_4Agent_RAG - INFO - 🔄 Agent 1 (Question Splitter) initialized
+2025-06-06 05:30:46,051 - Enhanced_4Agent_RAG - INFO - 🔥 Enhanced 4-agent pre-warming...
+2025-06-06 05:30:46,051 - hybrid_retriever - INFO - Retrieving 1 abstracts for query: test
+2025-06-06 05:30:46,051 - hybrid_retriever - INFO - 🔧 BM25 method: subprocess
+2025-06-06 05:30:46,052 - haystack_retriever - INFO - 🔥 First E5 query - this will be slow due to model loading...
+Model loaded on cuda
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  5.17it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  5.17it/s]
+2025-06-06 05:30:46,278 - haystack_retriever - INFO - ✅ E5 model warmed up! First query took 0.23s
+2025-06-06 05:30:46,278 - haystack_retriever - INFO - 🚀 Subsequent queries should be much faster (2-5s)
+2025-06-06 05:31:19,436 - hybrid_retriever - INFO - ✅ BM25 subprocess: 2 results in 33.38s
+2025-06-06 05:31:19,466 - hybrid_retriever - INFO - ✅ True hybrid: E5(2) + BM25(2)
+2025-06-06 05:31:19,468 - hybrid_retriever - INFO - Retrieved 1 abstracts in 33.42s
+2025-06-06 05:31:19,468 - Enhanced_4Agent_RAG - INFO - ✅ Retriever pre-warmed
+2025-06-06 05:31:19,975 - Enhanced_4Agent_RAG - INFO - ✅ All agents pre-warmed
+2025-06-06 05:31:19,976 - Enhanced_4Agent_RAG - INFO - 
+Processing single question with enhanced 4-agent system: What is machine learning and how to applicate it in mechanical engineering?
+2025-06-06 05:31:19,976 - Enhanced_4Agent_RAG - INFO - 🔍 Processing query with enhanced 4-agent approach: What is machine learning and how to applicate it in mechanical engineering?
+2025-06-06 05:31:19,977 - Enhanced_4Agent_RAG - INFO - 🧠 Agent 1: Analyzing query for splitting: What is machine learning and how to applicate it in mechanical engineering?
+2025-06-06 05:31:20,592 - Enhanced_4Agent_RAG - INFO - ✂️ Agent 1: Split into 2 sub-questions: ['What is machine learning?', 'How to apply machine learning in mechanical engineering?']
+2025-06-06 05:31:20,592 - PerformanceMonitor - INFO - ✅ agent1_question_splitting: 0.62s
+2025-06-06 05:31:20,592 - Enhanced_4Agent_RAG - INFO - 🔄 Processing 2 sub-questions in parallel
+2025-06-06 05:31:20,592 - Enhanced_4Agent_RAG - INFO - 🚀 Processing 2 questions in parallel
+2025-06-06 05:31:20,592 - Enhanced_4Agent_RAG - INFO - 📄 Retrieving abstracts for: What is machine learning?...
+2025-06-06 05:31:20,593 - hybrid_retriever - INFO - Retrieving 5 abstracts for query: What is machine learning?
+2025-06-06 05:31:20,593 - Enhanced_4Agent_RAG - INFO - 📄 Retrieving abstracts for: How to apply machine learning in mechanical engine...
+2025-06-06 05:31:20,593 - hybrid_retriever - INFO - 🔧 BM25 method: subprocess
+2025-06-06 05:31:20,593 - hybrid_retriever - INFO - Retrieving 5 abstracts for query: How to apply machine learning in mechanical engineering?
+2025-06-06 05:31:20,594 - hybrid_retriever - INFO - 🔧 BM25 method: subprocess
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]
+Batches:   0%|          | 0/1 [00:00<?, ?it/s][ABatches: 100%|██████████| 1/1 [00:00<00:00, 76.72it/s]
+Batches: 100%|██████████| 1/1 [00:00<00:00, 81.33it/s]
+2025-06-06 05:31:21,159 - haystack_retriever - INFO - ⚡ E5 query took 0.57s (good!)
+2025-06-06 05:31:21,167 - haystack_retriever - INFO - ⚡ E5 query took 0.57s (good!)
+2025-06-06 05:31:52,518 - hybrid_retriever - INFO - ✅ BM25 subprocess: 5 results in 31.92s
+2025-06-06 05:31:52,520 - hybrid_retriever - INFO - ✅ True hybrid: E5(10) + BM25(5)
+2025-06-06 05:31:52,520 - hybrid_retriever - INFO - Retrieved 5 abstracts in 31.93s
+2025-06-06 05:31:52,520 - Enhanced_4Agent_RAG - INFO - Retrieved 5 abstracts
+2025-06-06 05:31:52,520 - PerformanceMonitor - INFO - ✅ retrieve_abstracts_What is machine lear: 31.93s
+2025-06-06 05:31:52,520 - Enhanced_4Agent_RAG - INFO - 🤖 Agent-2 generating answers from abstracts for: What is machine learning?...
+  0%|          | 0/5 [00:00<?, ?it/s]2025-06-06 05:31:52,643 - hybrid_retriever - INFO - ✅ BM25 subprocess: 5 results in 32.05s
+2025-06-06 05:31:52,643 - hybrid_retriever - INFO - ✅ True hybrid: E5(10) + BM25(5)
+2025-06-06 05:31:52,644 - hybrid_retriever - INFO - Retrieved 5 abstracts in 32.05s
+2025-06-06 05:31:52,644 - Enhanced_4Agent_RAG - INFO - Retrieved 5 abstracts
+2025-06-06 05:31:52,644 - PerformanceMonitor - INFO - ✅ retrieve_abstracts_How to apply machine: 32.05s
+2025-06-06 05:31:52,644 - Enhanced_4Agent_RAG - INFO - 🤖 Agent-2 generating answers from abstracts for: How to apply machine learning in mechanical engine...
+
+  0%|          | 0/5 [00:00<?, ?it/s][A 20%|██        | 1/5 [00:01<00:06,  1.57s/it] 40%|████      | 2/5 [00:02<00:02,  1.07it/s]
+ 20%|██        | 1/5 [00:02<00:11,  2.77s/it][A 60%|██████    | 3/5 [00:03<00:01,  1.05it/s]
+ 40%|████      | 2/5 [00:03<00:04,  1.52s/it][A 80%|████████  | 4/5 [00:03<00:00,  1.24it/s]100%|██████████| 5/5 [00:03<00:00,  1.56it/s]100%|██████████| 5/5 [00:03<00:00,  1.26it/s]
+2025-06-06 05:31:56,492 - PerformanceMonitor - INFO - ✅ agent2_generation_What is machine lear: 3.97s
+2025-06-06 05:31:56,492 - Enhanced_4Agent_RAG - INFO - ⚖️ Agent-3 evaluating abstracts for: What is machine learning?...
+  0%|          | 0/5 [00:00<?, ?it/s] 40%|████      | 2/5 [00:00<00:00, 17.80it/s]100%|██████████| 5/5 [00:00<00:00, 20.43it/s]100%|██████████| 5/5 [00:00<00:00, 20.07it/s]
+2025-06-06 05:31:56,742 - PerformanceMonitor - INFO - ✅ agent3_evaluation_What is machine lear: 0.25s
+2025-06-06 05:31:56,745 - Enhanced_4Agent_RAG - INFO - 📊 Adaptive judge bar for 'What is machine learning?...': τq=-5.2942, adjusted: -6.1583
+2025-06-06 05:31:56,745 - Enhanced_4Agent_RAG - INFO - ✅ Filtered to 3 documents for: What is machine learning?...
+2025-06-06 05:31:56,745 - Enhanced_4Agent_RAG - INFO - ✅ Completed processing: What is machine learning?... -> 3 docs
+
+ 60%|██████    | 3/5 [00:04<00:02,  1.15s/it][A
+ 80%|████████  | 4/5 [00:04<00:00,  1.20it/s][A
+100%|██████████| 5/5 [00:05<00:00,  1.01s/it][A100%|██████████| 5/5 [00:05<00:00,  1.16s/it]
+2025-06-06 05:31:58,445 - PerformanceMonitor - INFO - ✅ agent2_generation_How to apply machine: 5.80s
+2025-06-06 05:31:58,445 - Enhanced_4Agent_RAG - INFO - ⚖️ Agent-3 evaluating abstracts for: How to apply machine learning in mechanical engine...
+  0%|          | 0/5 [00:00<?, ?it/s] 60%|██████    | 3/5 [00:00<00:00, 25.32it/s]100%|██████████| 5/5 [00:00<00:00, 27.75it/s]
+2025-06-06 05:31:58,626 - PerformanceMonitor - INFO - ✅ agent3_evaluation_How to apply machine: 0.18s
+2025-06-06 05:31:58,626 - Enhanced_4Agent_RAG - INFO - 📊 Adaptive judge bar for 'How to apply machine learning ...': τq=-4.6664, adjusted: -5.6586
+2025-06-06 05:31:58,626 - Enhanced_4Agent_RAG - INFO - ✅ Filtered to 2 documents for: How to apply machine learning in mechanical engine...
+2025-06-06 05:31:58,626 - Enhanced_4Agent_RAG - INFO - ✅ Completed processing: How to apply machine learning in mechanical engine... -> 2 docs
+2025-06-06 05:31:58,626 - PerformanceMonitor - INFO - ✅ parallel_question_processing: 38.03s
+2025-06-06 05:31:58,626 - Enhanced_4Agent_RAG - INFO - 📚 Total unique filtered documents: 5
+2025-06-06 05:31:58,626 - Enhanced_4Agent_RAG - INFO - 📚 Retrieving FULL texts for final answer generation...
+2025-06-06 05:31:58,626 - hybrid_retriever - INFO - 🚀 OPTIMIZED: Retrieving full texts for 5 documents (NO CHUNKING)
+2025-06-06 05:31:58,626 - hybrid_retriever - INFO - 💾 Cache hits: 0, Need to fetch: 5
+2025-06-06 05:32:29,299 - hybrid_retriever - INFO - 📝 Batch workers didn't work, using parallel individual retrieval (this is fine)
+2025-06-06 05:32:29,300 - hybrid_retriever - INFO - Using parallel individual retrieval for 5 remaining docs
+2025-06-06 05:32:34,447 - hybrid_retriever - INFO - ✅ Parallel individual retrieval got 5/5 texts
+2025-06-06 05:32:34,448 - hybrid_retriever - INFO - ✅ OPTIMIZED: Retrieved 5 FULL texts in 35.82s (avg 46694 chars/doc)
+2025-06-06 05:32:34,448 - PerformanceMonitor - INFO - ✅ get_full_texts: 35.82s
+2025-06-06 05:32:34,448 - Enhanced_4Agent_RAG - INFO - 🎯 Agent-4 generating final answer with citations using ORIGINAL query...
+2025-06-06 05:32:38,108 - PerformanceMonitor - INFO - ✅ agent4_generation: 3.66s
+2025-06-06 05:32:38,111 - PerformanceMonitor - INFO - ✅ total_4agent_processing: 78.14s
+2025-06-06 05:32:38,111 - Enhanced_4Agent_RAG - INFO - Cited Answer: Machine learning is a subset of artificial intelligence that involves training algorithms to make predictions or decisions based on data [1]. In mechanical engineering, machine learning can be applied to various areas such as predictive maintenance, design optimization, and process control [2]. For instance, machine learning models can be trained on historical maintenance data to predict equipment failures before they occur, thereby reducing downtime and maintenance costs [3]. Additionally, machine learning can be used to optimize mechanical designs by analyzing large datasets of design parameters and performance outcomes, leading to more efficient and reliable products [4]. Furthermore, in process control, machine learning algorithms can be employed to monitor and adjust manufacturing processes in real-time, improving quality and reducing waste [5]. These applications demonstrate the potential of machine learning to enhance efficiency and innovation in mechanical engineering [6].
+
+## References
+
+[1] "Unknown Title." arXiv:cs/0304027
+    Passage: ""I'm sorry Dave, I'm afraid I can't do that": Linguistics, Statistics, and Natural Language Processing circa 2001. { A brief, general-audience overview of the history of natural language\nprocessing, focusing on data-driven approaches."
+
+[2] "Unknown Title." arXiv:cs/0304006
+    Passage: "Learning to Paraphrase: An Unsupervised Approach Using Multiple-Sequence Alignment. { We address the text-to-text generation problem of sentence-level paraphrasing\n-- a phenomenon distinct from and more difficult than word- or phrase-level\nparaphrasing."
+
+[3] "Unknown Title." arXiv:math/0304372
+    Passage: "{'section': 'Abstract', 'text': " This talk will review a little over a decade's research on applying certain\nstochastic models to biological sequence analysis. The models themselves have a\nlonger history, going back over 30 years, although many novel variants have\narisen since that time."
+
+[4] "Unknown Title." arXiv:physics/0304102
+    Passage: "Bayesian Inference in Processing Experimental Data: Principles and Basic Applications. {'section': 'Abstract', 'text': " This report introduces general ideas and some basic methods of the Bayesian\nprobability theory applied to physics measurements."
+
+[5] "Unknown Title." arXiv:physics/0304043
+    Passage: "Energy minimization using Sobolev gradients: application to phase separation and ordering. { A common problem in physics and engineering is the calculation of the minima\nof energy functionals."
+
+
+2025-06-06 05:32:38,111 - Enhanced_4Agent_RAG - INFO - Was Split: True
+2025-06-06 05:32:38,111 - Enhanced_4Agent_RAG - INFO - Sub-questions: ['What is machine learning?', 'How to apply machine learning in mechanical engineering?']
+2025-06-06 05:32:38,111 - Enhanced_4Agent_RAG - INFO - Processing time: 78.14 seconds
+2025-06-06 05:32:38,111 - Enhanced_4Agent_RAG - INFO - Citations used: 5
+2025-06-06 05:32:38,114 - Enhanced_4Agent_RAG - INFO - Enhanced result written to results/enhanced_4agent_single_hybrid_20250606_053119.json
+2025-06-06 05:32:38,114 - Enhanced_4Agent_RAG - INFO - Enhanced 4-Agent RAG system closed
+2025-06-06 05:32:38,114 - haystack_retriever - INFO - Haystack retriever closing (keeping model loaded)
+2025-06-06 05:32:38,115 - hybrid_retriever - INFO - 📊 Final stats: 3 retrievals, avg 32.46s
+2025-06-06 05:32:38,115 - hybrid_retriever - INFO - 🔧 BM25 final status: subprocess (⚠️ SLOW)
+2025-06-06 05:32:38,115 - hybrid_retriever - INFO - Retriever closed
+
+📊 Job Summary:
+==============
+Job ID: 395415
+Start time: Fri Jun  6 05:32:39 AM CEST 2025
+Output files in: results/
+Logs in: logs/
+
+🧹 Cleaning up...
+✅ Citation RAG job completed successfully!
