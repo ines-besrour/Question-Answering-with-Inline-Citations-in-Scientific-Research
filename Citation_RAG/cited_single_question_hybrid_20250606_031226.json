@@ -1,0 +1,65 @@
+{
+  "id": "single_question_hybrid",
+  "question": "explain to me How we can Controll discrete quantum walks",
+  "answer": "Controlling discrete quantum walks involves manipulating the coin degrees of freedom, which offer a wider range of controls over the evolution of the walk compared to continuous time quantum walks [1]. This can be achieved by adjusting parameters such as the coin operator used in the quantum walk [1]. For instance, the Hadamard coin produces different behavior than the Grover coin [2]. Additionally, the initial state of the quantum walk can also be controlled to influence its evolution [1]. These methods allow for the exploration of various possibilities in controlling the dynamics of discrete quantum walks on regular graphs and can lead to periodic behavior on small cyclic graphs [1]. \n\nFurthermore, the coined quantum walk on a line can be understood as an interference phenomenon, which can be classically implemented and has already been observed [2]. This perspective provides an analogy between the evolution of walker positions in a quantum walk and the propagation of light in a dispersive optical fiber [2]. \n\nIn summary, controlling discrete quantum walks involves adjusting coin operators and initial states [1], and understanding the interference phenomena involved [2].\n\n## References\n\n[1] \"Controlling discrete quantum walks: coins and intitial states.\" arXiv:quant-ph/0304204\n    Passage: \"Controlling discrete quantum walks: coins and intitial states. { In discrete time, coined quantum walks, the coin degrees of freedom offer the\\npotential for a wider range of controls over the evolution of the walk than are\\navailable in the continuous time quantum walk. This paper explores some of the\\npossibilities on regular graphs, and also reports periodic behaviour on small\\ncyclic graphs. I...\"\n\n[2] \"Quantum walk on the line as an interference phenomenon.\" arXiv:quant-ph/0304201\n    Passage: \"Quantum walk on the line as an interference phenomenon. { We show that the coined quantum walk on a line can be understood as an\\ninterference phenomenon, can be classically implemented, and indeed already has\\nbeen. The walk is essentially two independent walks associated with the\\ndifferent coin sides, coupled only at initiation. There is a simple analogy\\nbetween the evolution of walker positio...\"\n\n",
+  "citation_count": 3,
+  "abstracts_retrieved": 5,
+  "filtered_documents": 3,
+  "full_texts_used": 3,
+  "processing_time": 83.46502327919006,
+  "retriever_type": "hybrid",
+  "passages_used": [
+    {
+      "citation_num": 1,
+      "doc_id": "quant-ph/0304204",
+      "paper_title": "Controlling discrete quantum walks: coins and intitial states",
+      "paper_id": "quant-ph/0304204",
+      "authors": "Unknown",
+      "year": "Unknown",
+      "context_passage": "Controlling discrete quantum walks: coins and intitial states. { In discrete time, coined quantum walks, the coin degrees of freedom offer the\\npotential for a wider range of controls over the evolution of the walk than are\\navailable in the continuous time quantum walk. This paper explores some of the\\npossibilities on regular graphs, and also reports periodic behaviour on small\\ncyclic graphs. I...",
+      "passage_preview": "Controlling discrete quantum walks: coins and intitial states. { In discrete time, coined quantum walks, the coin degrees of freedom offer the\\npotential for a wider range of controls over the evoluti..."
+    },
+    {
+      "citation_num": 2,
+      "doc_id": "quant-ph/0304201",
+      "paper_title": "Quantum walk on the line as an interference phenomenon",
+      "paper_id": "quant-ph/0304201",
+      "authors": "Unknown",
+      "year": "Unknown",
+      "context_passage": "Quantum walk on the line as an interference phenomenon. { We show that the coined quantum walk on a line can be understood as an\\ninterference phenomenon, can be classically implemented, and indeed already has\\nbeen. The walk is essentially two independent walks associated with the\\ndifferent coin sides, coupled only at initiation. There is a simple analogy\\nbetween the evolution of walker positio...",
+      "passage_preview": "Quantum walk on the line as an interference phenomenon. { We show that the coined quantum walk on a line can be understood as an\\ninterference phenomenon, can be classically implemented, and indeed al..."
+    }
+  ],
+  "document_metadata": {
+    "1": {
+      "doc_id": "quant-ph/0304204",
+      "paper_info": {
+        "title": "Controlling discrete quantum walks: coins and intitial states",
+        "authors": "Unknown",
+        "venue": "arXiv",
+        "year": "Unknown",
+        "paper_id": "quant-ph/0304204"
+      }
+    },
+    "2": {
+      "doc_id": "quant-ph/0304201",
+      "paper_info": {
+        "title": "Quantum walk on the line as an interference phenomenon",
+        "authors": "Unknown",
+        "venue": "arXiv",
+        "year": "Unknown",
+        "paper_id": "quant-ph/0304201"
+      }
+    },
+    "3": {
+      "doc_id": "cond-mat/0304594",
+      "paper_info": {
+        "title": "Dispersion management for atomic matter waves",
+        "authors": "Unknown",
+        "venue": "arXiv",
+        "year": "Unknown",
+        "paper_id": "cond-mat/0304594"
+      }
+    }
+  }
+}
