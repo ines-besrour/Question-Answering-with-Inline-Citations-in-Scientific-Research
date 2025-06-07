@@ -869,11 +869,10 @@ Remember: EVERY factual statement needs [1], [2], or [3] immediately after it. A
         logger.info("Enhanced 4-Agent RAG system closed")
 
 
-def initialize_retriever(retriever_type: str, e5_index_dir: str, bm25_index_dir: str, db_path: str, top_k: int, db=None):
-    """Initialize the retriever"""
-    logger.info(f"🔍 Initializing {retriever_type} retriever...")
-    return Retriever(e5_index_dir, bm25_index_dir, top_k=top_k)
-
+def initialize_retriever(retriever_type: str, e5_index_dir: str, bm25_index_dir: str, db_path: str, top_k: int, alpha: float = 0.65, db=None):
+    """Initialize the retriever with strategy and alpha support"""
+    logger.info(f"🔍 Initializing {retriever_type} retriever with α={alpha}...")
+    return Retriever(e5_index_dir, bm25_index_dir, top_k=top_k, strategy=retriever_type, alpha=alpha)
 
 # Your existing utility functions (unchanged)
 def load_datamorgana_questions(file_path):
@@ -982,12 +981,17 @@ def main():
     parser.add_argument("--output_format", choices=["json", "jsonl", "debug"], default="jsonl", help="Output format")
     parser.add_argument("--output_dir", type=str, default="results", help="Directory to save results")
     parser.add_argument("--max_workers", type=int, default=4, help="Maximum number of parallel workers")
+    parser.add_argument("--db_path", type=str, default=None, help="Path to LevelDB database (overrides config)")
+    parser.add_argument("--alpha", type=float, default=0.65, help="Weight for E5 in hybrid mode (0.0=BM25 only, 1.0=E5 only)")
+
     args = parser.parse_args()
     
-    # Open the database
-    logger.info(f"Opening database at {DB_PATH}...")
+    # Use custom DB path if provided, otherwise use config default
+    db_path_to_use = args.db_path if args.db_path else DB_PATH
+
+    logger.info(f"Opening database at {db_path_to_use}...")
     try:
-        db = plyvel.DB(DB_PATH, create_if_missing=False)
+        db = plyvel.DB(db_path_to_use, create_if_missing=False)
         logger.info("✅ Database opened successfully")
     except Exception as e:
         logger.error(f"Failed to open database: {e}")
@@ -1001,7 +1005,8 @@ def main():
         E5_INDEX_DIR, 
         BM25_INDEX_DIR, 
         DB_PATH, 
-        args.top_k
+        args.top_k,
+        args.alpha  # Add this line
     )
     
     logger.info(f"Initializing enhanced 4-agent RAG with n={args.n}, max_workers={args.max_workers}...")
