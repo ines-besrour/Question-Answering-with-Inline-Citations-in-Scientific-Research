@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem-per-cpu=15G
 #SBATCH --gres=gpu:1
-#SBATCH --time=8:00:00
+#SBATCH --time=10:00:00
 #SBATCH --job-name=citation-rag
 #SBATCH --output=logs/slurm_%j.log
 
@@ -59,9 +59,9 @@ echo "✅ Dependencies ready"
 MODEL="tiiuae/Falcon3-10B-Instruct"
 N_VALUE=0.5
 TOP_K=5
-RETRIEVER_TYPE="hybrid"  # or "e5" or "bm25"
+RETRIEVER_TYPE="bm25"  # or "e5" or "bm25"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-ALPHA=0.65
+# ALPHA=0.65
 
 echo "🎯 Run parameters:"
 echo "   Model: $MODEL"
@@ -75,13 +75,16 @@ echo "🧪 Test 1: Single question with citation RAG..."
 srun python enhanced_cited_RAG.py \
     --model $MODEL \
     --n $N_VALUE \
-    --retriever_type hybrid \
-    --index_dir "/data/horse/ws/inbe405h-unarxive/test_index" \
+    --retriever_type bm25 \
     --top_k $TOP_K \
     --max_workers 6 \
     --data_file "dataset/sciqa_dataset_1.jsonl" \
+    --index_dir "/data/horse/ws/inbe405h-unarxive/faiss_index" \
     --output_format jsonl \
-    --output_dir "results"
+    --output_dir "results" \
+    --db_path "/data/horse/ws/inbe405h-unarxive/full_text_db"
+
+# --index_dir "/data/horse/ws/inbe405h-unarxive/test_index" \
 
 echo ""
 echo "📊 Job Summary:"
