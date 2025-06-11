@@ -1,130 +1,0 @@
-🚀 Starting Citation RAG System with SLURM
-Job ID: 395408
-Node: c153
-==========================================
-✅ Cache directories configured:
-   HF_DATASETS_CACHE: /data/horse/ws/jihe529c-main-rag/cache/hf_datasets
-   TRANSFORMERS_CACHE: /data/horse/ws/jihe529c-main-rag/cache/hf_models
-   HF_HOME: /data/horse/ws/jihe529c-main-rag/cache/huggingface
-   TORCH_HOME: /data/horse/ws/jihe529c-main-rag/cache/torch
-✅ Directories created
-📦 Loading modules...
-Modules GCCcore/12.3.0, zlib/1.2.13, binutils/2.40, GCC/12.3.0, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, GCC/12.3.0, zlib/1.2.13, binutils/2.40, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, ncurses/6.4, OpenMPI/4.1.5, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, magma/2.7.2-CUDA-12.1.1, PyTorch/2.1.2-CUDA-12.1.1 and 76 dependencies unloaded.
-Modules GCCcore/12.3.0, zlib/1.2.13, binutils/2.40, GCC/12.3.0, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, ncurses/6.4, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, zlib/1.2.13, binutils/2.40, libevent/2.1.12, ncurses/6.4, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, ncurses/6.4, GCC/12.3.0, ncurses/6.4, numactl/2.0.16, XZ/5.4.2, libxml2/2.11.4, libpciaccess/0.17, hwloc/2.9.1, OpenSSL/1.1, libevent/2.1.12, UCX/1.14.1, libfabric/1.18.0, PMIx/4.2.4, UCC/1.2.0, OpenMPI/4.1.5, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1, OpenMPI/4.1.5, CUDA/12.1.1, cuDNN/8.9.2.26-CUDA-12.1.1, binutils/2.40, OpenBLAS/0.3.23, FlexiBLAS/3.3.1, FFTW/3.3.10, FFTW.MPI/3.3.10, ScaLAPACK/2.2.0-fb, GDRCopy/2.3.1, UCX-CUDA/1.14.1-CUDA-12.1.1, magma/2.7.2-CUDA-12.1.1, NCCL/2.18.3-CUDA-12.1.1, Ninja/1.11.1, bzip2/1.0.8, libreadline/8.2, Tcl/8.6.13, SQLite/3.42.0, libffi/3.4.4, Python/3.11.3, cffi/1.15.1, cryptography/41.0.1, virtualenv/20.23.1, Python-bundle-PyPI/2023.06, Abseil/20230125.3, protobuf/24.0, protobuf-python/4.24.0, pybind11/2.11.1, SciPy-bundle/2023.07, libyaml/0.2.5, PyYAML/6.0, GMP/6.2.1, MPFR/4.2.0, NASM/2.16.01, x264/20230226, LAME/3.100, x265/3.5, expat/2.5.0, libpng/1.6.39, Brotli/1.0.9, freetype/2.13.0, util-linux/2.39, fontconfig/2.14.2, xorg-macros/1.20.0, X11/20230603, FriBidi/1.0.12, SDL2/2.28.2, FFmpeg/6.0, libjpeg-turbo/2.1.5.1, jbigkit/2.1, gzip/1.12, lz4/1.9.4, zstd/1.5.5, libdeflate/1.18, LibTIFF/4.5.0, giflib/5.2.1, libwebp/1.3.1, OpenJPEG/2.5.0, LittleCMS/2.15, Pillow/10.0.0, expecttest/0.1.5, networkx/3.1, MPC/1.3.1, gmpy2/2.1.5, sympy/1.12, Z3/4.12.2, PyTorch/2.1.2-CUDA-12.1.1 and 14 dependencies loaded.
-Module PyTorch/2.1.2-CUDA-12.1.1 and 68 dependencies unloaded.
-Module PyTorch/2.1.2-CUDA-12.1.1 and 68 dependencies loaded.
-✅ Modules loaded
-🔧 Activating environment...
-✅ Environment activated
-📥 Installing dependencies...
-✅ Dependencies ready
-🎯 Run parameters:
-   Model: tiiuae/Falcon3-10B-Instruct
-   N (judge bar): 0.5
-   Top K: 5
-   Retriever: hybrid
-
-🧪 Test 1: Single question with citation RAG...
-/data/horse/ws/jihe529c-main-rag/BM25/Question-Answering-with-Inline-Citations-in-Scientific-Research/new_env/lib/python3.11/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
-  warnings.warn(
-2025-06-06 03:11:33,158 - faiss.loader - INFO - Loading faiss with AVX512 support.
-2025-06-06 03:11:33,177 - faiss.loader - INFO - Successfully loaded faiss with AVX512 support.
-2025-06-06 03:11:33,181 - faiss - INFO - Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
-2025-06-06 03:11:33,478 - CITED_RAG_Runner - INFO - Opening database at /data/horse/ws/inbe405h-unarxive/full_text_db...
-2025-06-06 03:11:33,612 - CITED_RAG_Runner - INFO - ✅ Database opened successfully
-2025-06-06 03:11:33,613 - CITED_RAG_Runner - INFO - 🔍 Initializing hybrid retriever...
-2025-06-06 03:11:33,613 - haystack_retriever - INFO - 🔄 Loading Haystack retriever from /data/horse/ws/inbe405h-unarxive/test_index
-2025-06-06 03:11:33,701 - haystack_retriever - INFO - 🔄 Loading E5 model (this may take time on first load)...
-2025-06-06 03:11:33,701 - haystack.modeling.utils - INFO - Using devices: CUDA:0 - Number of GPUs: 1
-2025-06-06 03:11:33,701 - haystack.nodes.retriever.dense - INFO - Init retriever using embeddings of model intfloat/e5-large-v2
-2025-06-06 03:11:33,703 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: intfloat/e5-large-v2
-2025-06-06 03:11:38,522 - haystack_retriever - INFO - ✅ Haystack retriever initialized
-2025-06-06 03:11:38,523 - hybrid_retriever - INFO - 🚀 Attempting to load BM25 index into memory...
-2025-06-06 03:11:38,524 - hybrid_retriever - WARNING - ❌ llama_index.retrievers.bm25 not available
-2025-06-06 03:11:38,524 - hybrid_retriever - INFO - 🔄 Will use subprocess method instead
-2025-06-06 03:11:38,524 - CITED_RAG_Runner - INFO - Initializing cited 3-agent RAGent with n=0.5...
-2025-06-06 03:11:39,167 - accelerate.utils.modeling - INFO - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
-Initializing LLMAgent with model: tiiuae/Falcon3-10B-Instruct
-Loading tokenizer...
-Using bfloat16 precision
-Loading model...
-Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.00s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.51s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.61s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:10<00:02,  2.74s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.10s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:11<00:00,  2.30s/it]
-2025-06-06 03:11:50,972 - CITED_RAG_Runner - INFO - Using local LLM agents with model tiiuae/Falcon3-10B-Instruct
-2025-06-06 03:11:50,973 - CITED_RAG_Runner - INFO - 🔥 Enhanced pre-warming...
-2025-06-06 03:11:50,973 - hybrid_retriever - INFO - Retrieving 1 abstracts for query: test
-2025-06-06 03:11:50,973 - hybrid_retriever - INFO - 🔧 BM25 method: subprocess
-2025-06-06 03:11:50,973 - haystack_retriever - INFO - 🔥 First E5 query - this will be slow due to model loading...
-Model loaded on cuda
-Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.90it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.89it/s]
-2025-06-06 03:11:51,212 - haystack_retriever - INFO - ✅ E5 model warmed up! First query took 0.24s
-2025-06-06 03:11:51,213 - haystack_retriever - INFO - 🚀 Subsequent queries should be much faster (2-5s)
-2025-06-06 03:12:25,565 - hybrid_retriever - INFO - ✅ BM25 subprocess: 2 results in 34.59s
-2025-06-06 03:12:25,570 - hybrid_retriever - INFO - ✅ True hybrid: E5(2) + BM25(2)
-2025-06-06 03:12:25,570 - hybrid_retriever - INFO - Retrieved 1 abstracts in 34.60s
-2025-06-06 03:12:25,571 - CITED_RAG_Runner - INFO - ✅ Retriever pre-warmed
-2025-06-06 03:12:26,139 - CITED_RAG_Runner - INFO - ✅ Agents pre-warmed
-2025-06-06 03:12:26,140 - CITED_RAG_Runner - INFO - ℹ️ BM25 server not running (will use subprocess)
-2025-06-06 03:12:26,141 - CITED_RAG_Runner - INFO - 
-Processing single question with hybrid retrieval: explain to me How we can Controll discrete quantum walks
-2025-06-06 03:12:26,141 - CITED_RAG_Runner - INFO - 🔍 Processing query with cited 3-agent approach: explain to me How we can Controll discrete quantum walks
-2025-06-06 03:12:26,141 - CITED_RAG_Runner - INFO - 📄 Phase 1: Retrieving abstracts for filtering...
-2025-06-06 03:12:26,142 - hybrid_retriever - INFO - Retrieving 5 abstracts for query: explain to me How we can Controll discrete quantum walks
-2025-06-06 03:12:26,142 - hybrid_retriever - INFO - 🔧 BM25 method: subprocess
-Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.06it/s]
-2025-06-06 03:12:26,198 - haystack_retriever - INFO - ⚡ E5 query took 0.06s (good!)
-2025-06-06 03:13:02,117 - hybrid_retriever - INFO - ✅ BM25 subprocess: 5 results in 35.97s
-2025-06-06 03:13:02,138 - hybrid_retriever - INFO - ✅ True hybrid: E5(10) + BM25(5)
-2025-06-06 03:13:02,139 - hybrid_retriever - INFO - Retrieved 5 abstracts in 36.00s
-2025-06-06 03:13:02,139 - CITED_RAG_Runner - INFO - Retrieved 5 abstracts
-2025-06-06 03:13:02,139 - PerformanceMonitor - INFO - ✅ retrieve_abstracts: 36.00s
-2025-06-06 03:13:02,139 - CITED_RAG_Runner - INFO - 🤖 Agent-1 generating answers from abstracts...
-  0%|          | 0/5 [00:00<?, ?it/s] 20%|██        | 1/5 [00:01<00:05,  1.28s/it] 40%|████      | 2/5 [00:02<00:03,  1.10s/it] 60%|██████    | 3/5 [00:04<00:03,  1.61s/it] 80%|████████  | 4/5 [00:05<00:01,  1.41s/it]100%|██████████| 5/5 [00:06<00:00,  1.27s/it]100%|██████████| 5/5 [00:06<00:00,  1.32s/it]
-2025-06-06 03:13:08,743 - PerformanceMonitor - INFO - ✅ agent1_generation: 6.60s
-2025-06-06 03:13:08,743 - CITED_RAG_Runner - INFO - ⚖️ Agent-2 evaluating abstracts...
-  0%|          | 0/5 [00:00<?, ?it/s] 60%|██████    | 3/5 [00:00<00:00, 24.95it/s]100%|██████████| 5/5 [00:00<00:00, 25.98it/s]
-2025-06-06 03:13:08,936 - PerformanceMonitor - INFO - ✅ agent2_evaluation: 0.19s
-2025-06-06 03:13:08,941 - CITED_RAG_Runner - INFO - 📊 Adaptive judge bar: τq=-2.3793, adjusted: -3.3977
-2025-06-06 03:13:08,941 - CITED_RAG_Runner - INFO - ✅ Filtered to 3 documents
-2025-06-06 03:13:08,941 - CITED_RAG_Runner - INFO - 📚 Phase 2: Retrieving FULL texts for answer generation (NO CHUNKING)...
-2025-06-06 03:13:08,941 - hybrid_retriever - INFO - 🚀 OPTIMIZED: Retrieving full texts for 3 documents (NO CHUNKING)
-2025-06-06 03:13:08,941 - hybrid_retriever - INFO - 💾 Cache hits: 0, Need to fetch: 3
-2025-06-06 03:13:39,619 - hybrid_retriever - INFO - 📝 Batch workers didn't work, using parallel individual retrieval (this is fine)
-2025-06-06 03:13:39,620 - hybrid_retriever - INFO - Using parallel individual retrieval for 3 remaining docs
-2025-06-06 03:13:44,694 - hybrid_retriever - INFO - ✅ Parallel individual retrieval got 3/3 texts
-2025-06-06 03:13:44,694 - hybrid_retriever - INFO - ✅ OPTIMIZED: Retrieved 3 FULL texts in 35.75s (avg 30698 chars/doc)
-2025-06-06 03:13:44,694 - PerformanceMonitor - INFO - ✅ get_full_texts: 35.75s
-2025-06-06 03:13:44,694 - CITED_RAG_Runner - INFO - 🎯 Agent-3 generating answer with citations from FULL texts...
-2025-06-06 03:13:49,604 - PerformanceMonitor - INFO - ✅ agent3_generation: 4.91s
-2025-06-06 03:13:49,606 - PerformanceMonitor - INFO - ✅ total_query_processing: 83.46s
-2025-06-06 03:13:49,606 - CITED_RAG_Runner - INFO - Cited Answer: Controlling discrete quantum walks involves manipulating the coin degrees of freedom, which offer a wider range of controls over the evolution of the walk compared to continuous time quantum walks [1]. This can be achieved by adjusting parameters such as the coin operator used in the quantum walk [1]. For instance, the Hadamard coin produces different behavior than the Grover coin [2]. Additionally, the initial state of the quantum walk can also be controlled to influence its evolution [1]. These methods allow for the exploration of various possibilities in controlling the dynamics of discrete quantum walks on regular graphs and can lead to periodic behavior on small cyclic graphs [1]. 
-
-Furthermore, the coined quantum walk on a line can be understood as an interference phenomenon, which can be classically implemented and has already been observed [2]. This perspective provides an analogy between the evolution of walker positions in a quantum walk and the propagation of light in a dispersive optical fiber [2]. 
-
-In summary, controlling discrete quantum walks involves adjusting coin operators and initial states [1], and understanding the interference phenomena involved [2].
-
-## References
-
-[1] "Controlling discrete quantum walks: coins and intitial states." arXiv:quant-ph/0304204
-    Passage: "Controlling discrete quantum walks: coins and intitial states. { In discrete time, coined quantum walks, the coin degrees of freedom offer the\npotential for a wider range of controls over the evolution of the walk than are\navailable in the continuous time quantum walk. This paper explores some of the\npossibilities on regular graphs, and also reports periodic behaviour on small\ncyclic graphs. I..."
-
-[2] "Quantum walk on the line as an interference phenomenon." arXiv:quant-ph/0304201
-    Passage: "Quantum walk on the line as an interference phenomenon. { We show that the coined quantum walk on a line can be understood as an\ninterference phenomenon, can be classically implemented, and indeed already has\nbeen. The walk is essentially two independent walks associated with the\ndifferent coin sides, coupled only at initiation. There is a simple analogy\nbetween the evolution of walker positio..."
-
-
-2025-06-06 03:13:49,606 - CITED_RAG_Runner - INFO - Processing time: 83.47 seconds
-2025-06-06 03:13:49,606 - CITED_RAG_Runner - INFO - Citations used: 3
-2025-06-06 03:13:49,608 - CITED_RAG_Runner - INFO - Cited result written to results/cited_single_question_hybrid_20250606_031226.json
-2025-06-06 03:13:49,608 - haystack_retriever - INFO - Haystack retriever closing (keeping model loaded)
-2025-06-06 03:13:49,608 - hybrid_retriever - INFO - 📊 Final stats: 2 retrievals, avg 35.30s
-2025-06-06 03:13:49,609 - hybrid_retriever - INFO - 🔧 BM25 final status: subprocess (⚠️ SLOW)
-2025-06-06 03:13:49,609 - hybrid_retriever - INFO - Retriever closed
-
-📊 Job Summary:
-==============
-Job ID: 395408
-Start time: Fri Jun  6 03:13:51 AM CEST 2025
-Output files in: results/
-Logs in: logs/
-
-🧹 Cleaning up...
-✅ Citation RAG job completed successfully!
