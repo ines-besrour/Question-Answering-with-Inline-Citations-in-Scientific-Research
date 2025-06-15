@@ -730,80 +730,6 @@ Begin comprehensive analysis now:"""
         logger.info(f"Used simple reference formatting for {len(self.citation_to_doc)} citations")
         return references
 
-    def format_references_with_direct_passages(self, answer_text: str = None, direct_passages: Dict[int, str] = None) -> str:
-        """Format references using direct passages provided by Agent 4"""
-        if not self.citation_to_doc:
-            return ""
-        
-        # Use direct passages if available, otherwise fall back to comprehensive extraction
-        if direct_passages:
-            logger.info("Using direct passages provided by Agent 4")
-            all_passages = direct_passages
-        else:
-            logger.info("No direct passages available, falling back to comprehensive extraction")
-            all_passages = self.extract_all_citations_comprehensive(answer_text) if answer_text else {}
-        
-        if not all_passages:
-            logger.warning("No passages available, using simple formatting")
-            return self._format_references_simple()
-        
-        # Build references section
-        references = "\n\n## References\n\n"
-        total_chars = 0
-        successful_extractions = 0
-        
-        for citation_num in sorted(all_passages.keys()):
-            if citation_num not in self.citation_to_doc:
-                continue
-                
-            doc_info = self.citation_to_doc[citation_num]
-            paper_info = doc_info['paper_info']
-            
-            # Format academic reference
-            ref_line = f"[{citation_num}] "
-            
-            # Add authors
-            if paper_info['authors'] != 'Unknown':
-                ref_line += f"{paper_info['authors']}. "
-            
-            # Add title in quotes
-            title = paper_info['title'].replace('"', "'")
-            ref_line += f'"{title}." '
-            
-            # Add venue and year with paper ID
-            if paper_info.get('paper_id') and paper_info['paper_id'] != 'Unknown':
-                if str(paper_info['paper_id']).startswith('arXiv:'):
-                    ref_line += f"{paper_info['paper_id']}"
-                else:
-                    ref_line += f"arXiv:{paper_info['paper_id']}"
-            else:
-                ref_line += f"{paper_info['venue']}"
-            
-            if paper_info['year'] != 'Unknown':
-                ref_line += f" ({paper_info['year']})"
-            
-            # Add the direct passage from Agent 4
-            passage = all_passages[citation_num]
-            ref_line += f'\n    Passage: "{passage}"'
-            
-            references += ref_line + "\n\n"
-            total_chars += len(passage)
-            successful_extractions += 1
-        
-        # Log statistics
-        total_citations = len(all_passages)
-        success_rate = (successful_extractions / total_citations) * 100 if total_citations > 0 else 0
-        avg_length = total_chars // total_citations if total_citations > 0 else 0
-        
-        logger.info(f"DIRECT PASSAGE EXTRACTION RESULTS:")
-        logger.info(f"  Total citations processed: {total_citations}")
-        logger.info(f"  Successful extractions: {successful_extractions}/{total_citations} ({success_rate:.1f}%)")
-        logger.info(f"  Total passage characters: {total_chars:,}")
-        logger.info(f"  Average passage length: {avg_length:,} chars")
-        logger.info(f"  Model calls used: 0 (direct from Agent 4)")
-        
-        return references
-
 class FourAgentRAG:
     """4-Agent RAG System with Full-Text Context Strategy and Context Management"""
     
@@ -1059,7 +985,7 @@ Is this document relevant and supportive for answering the question?"""
                         truncated_text = self._smart_truncate_document(clean_text, max_chars_for_content, doc_id)
                         estimated_doc_size = len(truncated_text) + 300
                         
-                        logger.info(f"SMART TRUNCATED: {len(clean_text):,} → {len(truncated_text):,} chars to fit remaining space")
+                        logger.info(f"🔧 SMART TRUNCATED: {len(clean_text):,} → {len(truncated_text):,} chars to fit remaining space")
                         clean_text = truncated_text
                     else:
                         if documents_used == 0:
@@ -1098,8 +1024,8 @@ Is this document relevant and supportive for answering the question?"""
         
         return docs_with_citations
     
-    def _create_agent4_prompt_with_passages(self, original_query, full_texts, citation_handler, was_split: bool = False, sub_question_groups: List[List[str]] = None):
-        """Agent-4 prompt that generates answer AND passages in one call - IMPROVED VERSION"""
+    def _create_agent4_prompt_with_citations_fulltext(self, original_query, full_texts, citation_handler, was_split: bool = False, sub_question_groups: List[List[str]] = None):
+        """IMPROVED Agent-4 prompt with stronger citation enforcement"""
         
         # Prepare documents with full-text strategy
         docs_with_citations = self._prepare_documents_for_agent4_fulltext(
@@ -1114,211 +1040,33 @@ Is this document relevant and supportive for answering the question?"""
         
         context_info = "32K context" if not was_split else "16K per sub-question group"
         
-        return f"""You are an expert academic researcher. Answer the question using ONLY the provided documents with citations AND provide the exact text passages you used.
+        return f"""You are a precise academic AI assistant. Answer questions using ONLY the provided documents with MANDATORY academic citations.
 
-    CRITICAL: You MUST provide your response in this EXACT format:
+DOCUMENTS:
+{docs_text}
 
-    ## Answer
-    [Your answer with citations like [1], [2], [3]]
+MANDATORY CITATION RULES - FOLLOW EXACTLY:
 
-    ## Passages Used
-    Citation [1]: "[EXACT text from Document 1 - copy the specific sentences that support your claims]"
-    Citation [2]: "[EXACT text from Document 2 - copy the specific sentences that support your claims]"
-    Citation [3]: "[EXACT text from Document 3 - copy the specific sentences that support your claims]"
+CORRECT EXAMPLES:
+"Pebble games characterize sparse graphs [1]. These algorithms find rigid structures efficiently [2]. The method extends to hypergraphs [3]."
 
-    IMPORTANT RULES:
-    1. In the "Passages Used" section, copy the EXACT SENTENCES from the documents that support your claims
-    2. Do NOT just write the paper title - copy the actual TEXT CONTENT
-    3. Each passage should be 100-500 words of actual content from the paper
-    4. Use citations [{citation_examples}] after every factual claim
-    5. The passages must be direct quotes from the document text, not summaries
+"Machine learning uses pattern recognition [1], neural networks [2], and requires large datasets [3]."
 
-    EXAMPLE:
-    ## Answer
-    Pebble games characterize sparse graphs through matroidal properties [1]. They provide efficient algorithms for rigidity analysis [2].
+WRONG EXAMPLES (DO NOT DO THIS):
+"Machine learning is powerful. It uses algorithms and requires data. [1, 2, 3]" ← WRONG!
+"The research shows important findings [1, 2, 3]." ← WRONG!
+"Algorithms are useful." ← WRONG! (no citation)
 
-    ## Passages Used
-    Citation [1]: "We describe a new algorithm, the k-pebble game with colors, and use it to obtain a characterization of the family of k-sparse graphs and algorithmic solutions to tree decompositions. Special instances of sparse graphs appear in rigidity theory."
-    Citation [2]: "Generic rigidity of graphs in the plane is a well-studied topic in rigidity theory. Pebble games provide a powerful algorithmic framework for analyzing the rigidity properties of geometric structures."
+REQUIREMENTS:
+1. Every sentence with facts MUST end with [1], [2], [3], etc.
+2. Use different numbers - don't repeat [1] for everything
+3. NO GROUP CITATIONS like [1, 2, 3] at the end
+4. Available citations: {citation_examples}
+5. Write 4-6 paragraphs with citations throughout
 
-    Documents:
-    {docs_text}
+QUESTION: {original_query}
 
-    Question: {original_query}
-
-    Remember: Copy EXACT TEXT from documents in the "Passages Used" section, not just titles!
-
-    Your response:"""
-
-    def _parse_agent4_response_with_passages(self, raw_response: str) -> Tuple[str, Dict[int, str]]:
-        """Parse Agent 4 response to extract answer and passages separately"""
-        try:
-            # DEBUG: Log the raw response to see what Agent 4 actually provided
-            logger.info("=== DEBUG: Agent 4 Raw Response ===")
-            logger.info(f"Raw response length: {len(raw_response)} chars")
-            logger.info(f"Raw response preview (first 1000 chars):\n{raw_response[:1000]}")
-            logger.info("=== End Debug Response ===")
-            
-            # Split response into sections
-            if "## Passages Used" in raw_response:
-                parts = raw_response.split("## Passages Used", 1)
-                answer_section = parts[0].replace("## Answer", "").strip()
-                passages_section = parts[1].strip()
-                
-                # DEBUG: Log the sections
-                logger.info(f"Found '## Passages Used' section")
-                logger.info(f"Answer section length: {len(answer_section)} chars")
-                logger.info(f"Passages section length: {len(passages_section)} chars")
-                logger.info(f"Passages section preview:\n{passages_section[:500]}")
-                
-            else:
-                # DEBUG: Log missing section
-                logger.warning("No '## Passages Used' section found in Agent 4 response")
-                answer_section = raw_response.strip()
-                passages_section = ""
-            
-            # Extract passages from the passages section
-            extracted_passages = {}
-            if passages_section:
-                # Find all citation patterns like "Citation [1]: "text""
-                citation_pattern = r'Citation \[(\d+)\]:\s*"([^"]+)"'
-                matches = re.findall(citation_pattern, passages_section, re.DOTALL)
-                
-                # DEBUG: Log pattern matching
-                logger.info(f"Found {len(matches)} citation pattern matches")
-                for i, (citation_num_str, passage) in enumerate(matches):
-                    logger.info(f"Match {i+1}: Citation [{citation_num_str}] -> '{passage[:100]}...'")
-                
-                for citation_num_str, passage in matches:
-                    citation_num = int(citation_num_str)
-                    # Clean up the passage
-                    clean_passage = re.sub(r'\s+', ' ', passage.strip())
-                    if clean_passage and not clean_passage.endswith(('.', '!', '?')):
-                        clean_passage += '.'
-                    extracted_passages[citation_num] = clean_passage
-                    logger.info(f"Extracted passage for citation [{citation_num}]: {len(clean_passage)} chars")
-            
-            logger.info(f"Agent 4 provided {len(extracted_passages)} passages directly")
-            return answer_section, extracted_passages
-            
-        except Exception as e:
-            logger.error(f"Error parsing Agent 4 response with passages: {e}")
-            # Fallback to just the answer
-            return raw_response.strip(), {}
-        
-    def _is_valid_passage(self, passage: str) -> bool:
-        """Check if a passage is valid content (not just a title)"""
-        if not passage or len(passage) < 20:
-            return False
-        
-        # Check if it's just a title (common patterns)
-        title_patterns = [
-            r'^[A-Z][^.!?]*$',  # Single sentence without punctuation
-            r'^[^.!?]*\.(?: arXiv:.*)?$',  # Title ending with period + optional arXiv
-            r'^.*\b(Algorithm|Method|Analysis|Study|Approach)s?\b[^.!?]*$',  # Common title words
-        ]
-        
-        for pattern in title_patterns:
-            if re.match(pattern, passage.strip()):
-                logger.debug(f"Passage looks like a title: '{passage[:50]}...'")
-                return False
-        
-        # Good indicators of actual content
-        content_indicators = [
-            ' we ', ' our ', ' this ', ' these ', ' that ', ' which ',
-            ' can ', ' will ', ' show ', ' demonstrate ', ' prove ',
-            ' algorithm ', ' method ', ' result ', ' approach ',
-            '. ', '? ', '! ',  # Multiple sentences
-        ]
-        
-        passage_lower = passage.lower()
-        indicator_count = sum(1 for indicator in content_indicators if indicator in passage_lower)
-        
-        return indicator_count >= 2  # Should have at least 2 content indicators
-
-    def _extract_fallback_passage_from_context(self, citation_num: int) -> str:
-        """Extract a fallback passage when Agent 4 provides poor quality passages"""
-        try:
-            if hasattr(self, 'citation_handler') and citation_num in self.citation_handler.citation_to_doc:
-                doc_info = self.citation_handler.citation_to_doc[citation_num]
-                doc_text = doc_info['text']
-                
-                # Clean and get first meaningful paragraph
-                clean_text = self._clean_full_text(doc_text, doc_info['doc_id'])
-                paragraphs = clean_text.split('\n\n')
-                
-                for paragraph in paragraphs:
-                    if len(paragraph) > 100 and paragraph.count('.') >= 2:
-                        # Take first 200 chars of meaningful paragraph
-                        sentences = paragraph.split('. ')
-                        result = '. '.join(sentences[:2])
-                        if len(result) > 50:
-                            return result + '.' if not result.endswith('.') else result
-                
-                # Fallback to first few sentences
-                sentences = re.split(r'[.!?]+', clean_text)
-                meaningful_sentences = [s.strip() for s in sentences if len(s.strip()) > 30]
-                if meaningful_sentences:
-                    return '. '.join(meaningful_sentences[:2]) + '.'
-                    
-        except Exception as e:
-            logger.debug(f"Error extracting fallback passage for citation {citation_num}: {e}")
-        
-        return None
-
-    def _update_citation_handler_with_direct_passages(self, citation_handler, direct_passages: Dict[int, str]):
-        """Update citation handler with passages provided directly by Agent 4"""
-        try:
-            # Store the direct passages in the citation handler
-            if hasattr(citation_handler, 'direct_passages'):
-                citation_handler.direct_passages = direct_passages
-            else:
-                # Add this attribute to store direct passages
-                citation_handler.direct_passages = direct_passages
-            
-            logger.info(f"Updated citation handler with {len(direct_passages)} direct passages from Agent 4")
-            
-        except Exception as e:
-            logger.error(f"Error updating citation handler with direct passages: {e}")
-
-    def _extract_passages_used_with_direct(self, answer_text: str, citation_handler, direct_passages: Dict[int, str] = None) -> List[Dict]:
-        """Extract passages used - prioritize direct passages from Agent 4"""
-        # Find all citations in the answer
-        citation_matches = re.findall(r'\[(\d+)\]', answer_text)
-        used_citations = set(int(num) for num in citation_matches)
-        
-        passages_used = []
-        
-        # Use direct passages if available
-        if direct_passages:
-            logger.info("Using direct passages provided by Agent 4")
-            for citation_num in used_citations:
-                if citation_num in citation_handler.citation_to_doc:
-                    doc_info = citation_handler.citation_to_doc[citation_num]
-                    
-                    # Get direct passage or fallback
-                    context_passage = direct_passages.get(citation_num, "No passage provided by Agent 4")
-                    
-                    passages_used.append({
-                        "citation_num": citation_num,
-                        "doc_id": doc_info['doc_id'],
-                        "paper_title": doc_info['paper_info']['title'],
-                        "paper_id": doc_info['paper_info']['paper_id'],
-                        "authors": doc_info['paper_info']['authors'],
-                        "year": doc_info['paper_info']['year'],
-                        "context_passage": context_passage,
-                        "passage_preview": context_passage[:200] + "..." if len(context_passage) > 200 else context_passage,
-                        "extraction_method": "direct_from_agent4"
-                    })
-            
-            logger.info(f"Extracted {len(passages_used)} passages using direct method from Agent 4")
-            return passages_used
-        
-        # Fallback to original comprehensive extraction
-        else:
-            logger.info("No direct passages available, using comprehensive extraction")
-            return self._extract_passages_used(answer_text, citation_handler)
-
+Write your answer now with proper individual citations after each claim:"""
     def _reorder_full_texts_by_agent3_scores(self, full_texts: List[Tuple[str, str]], agent3_scores: Dict[str, float]) -> List[Tuple[str, str]]:
         """Reorder full texts by Agent 3 scores (highest scores first)"""
         def get_score(item):
@@ -1519,10 +1267,10 @@ Is this document relevant and supportive for answering the question?"""
                 # Last resort: use abstracts
                 full_texts = [(abstract_text, doc_id) for abstract_text, doc_id in fallback_abstracts[:3]]
     
-        # PHASE 4: Agent-4 generates final answer with direct passages
+        # PHASE 4: Agent-4 generates final answer with full-text context
         strategy_info = f"FULL-TEXT ({'split questions' if should_split else 'single question'})"
-        logger.info(f"Agent-4 generating final answer with direct passages... [{strategy_info}]")
-
+        logger.info(f"Agent-4 generating final answer with full-text strategy... [{strategy_info}]")
+        
         # Group documents by sub-questions if needed
         sub_question_groups = None
         if should_split and len(filtered_doc_ids_per_question) >= 2:
@@ -1530,32 +1278,26 @@ Is this document relevant and supportive for answering the question?"""
                 filtered_doc_ids_per_question, 
                 unique_filtered_doc_ids
             )
-
-        # Use the new prompt that asks for both answer and passages
-        prompt = self._create_agent4_prompt_with_passages(
+        
+        # Use the full-text preparation method
+        prompt = self._create_agent4_prompt_with_citations_fulltext(
             query, full_texts, citation_handler, should_split, sub_question_groups
         )
-        raw_response = self.agent4.generate(prompt)
-
-        # Parse the response to extract answer and direct passages
-        clean_answer, direct_passages = self._parse_agent4_response_with_passages(raw_response)
-
-        # Update citation handler with direct passages
-        self._update_citation_handler_with_direct_passages(citation_handler, direct_passages)
-
-        # Generate references using direct passages (no additional LLM calls needed!)
-        references = citation_handler.format_references_with_direct_passages(clean_answer, direct_passages)
-
-        # Remove any references Agent-4 might have added in the answer section
-        if "## References" in clean_answer:
-            clean_answer = re.split(r'\n\s*## References', clean_answer)[0]
-
+        raw_answer = self.agent4.generate(prompt)
+        
+        # Generate references with comprehensive context passages
+        references = citation_handler.format_references_comprehensive(raw_answer)
+        
+        # Remove any references Agent-4 might have added
+        if "## References" in raw_answer:
+            raw_answer = re.split(r'\n\s*## References', raw_answer)[0]
+        
         # Combine answer with references
-        cited_answer = clean_answer.strip() + references
-
+        cited_answer = raw_answer.strip() + references
+        
         citation_map = citation_handler.get_citation_map()
-
-        # Debug info - Updated to use direct passages
+        
+        # Debug info
         debug_info = {
             "original_query": query,
             "was_split": should_split,
@@ -1565,7 +1307,7 @@ Is this document relevant and supportive for answering the question?"""
             "full_texts_retrieved": len(full_texts),
             "total_citations": len(citation_map),
             "citation_map": citation_map,
-            "passages_used": self._extract_passages_used_with_direct(clean_answer, citation_handler, direct_passages),
+            "passages_used": self._extract_passages_used(raw_answer, citation_handler),
             "document_metadata": self._extract_document_metadata(citation_handler),
             "agent3_scores": all_agent3_scores,
             "context_stats": {
@@ -1576,7 +1318,7 @@ Is this document relevant and supportive for answering the question?"""
                 "context_allocation": "32K single" if not should_split else "16K per sub-question"
             }
         }
-
+    
         return cited_answer, debug_info
     
     def _extract_passages_used(self, answer_text: str, citation_handler) -> List[Dict]:
