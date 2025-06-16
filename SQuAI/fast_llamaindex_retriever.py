@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Fast LlamaIndex BM25 Retriever - Keeps index loaded in memory
-Drop-in replacement for your subprocess approach
 """
 import json
 import logging
