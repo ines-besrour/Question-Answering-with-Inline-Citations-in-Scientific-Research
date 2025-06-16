@@ -5,12 +5,6 @@ BM25-Only Retriever - No Haystack Dependencies
 
 This completely avoids Haystack/E5 imports to eliminate environment conflicts.
 Perfect for BM25-only RAG systems.
-
-BENEFITS:
-- No Haystack conflicts
-- Single clean environment  
-- 15-50x faster than subprocess
-- Simple, focused implementation
 """
 
 import json
@@ -138,7 +132,7 @@ class BM25OnlyRetriever:
                     }
                     result.append((abstract_text, doc_id))
                 
-                logger.info(f"🚀 Fast BM25-only: {len(result)} documents")
+                logger.info(f"Fast BM25-only: {len(result)} documents")
                 return result
                 
             except Exception as e:
