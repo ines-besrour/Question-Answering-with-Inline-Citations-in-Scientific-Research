@@ -12,7 +12,7 @@ class HaystackRetriever:
     FIXED: Haystack retriever that keeps E5 model in memory
     """
     def __init__(self, e5_index_directory: str):
-        logger.info(f"🔄 Loading Haystack retriever from {e5_index_directory}")
+        logger.info(f"Loading Haystack retriever from {e5_index_directory}")
         
         # Load document store
         self.document_store = FAISSDocumentStore.load(
@@ -21,7 +21,7 @@ class HaystackRetriever:
         )
         
         # Initialize retriever - this loads the model
-        logger.info("🔄 Loading E5 model (this may take time on first load)...")
+        logger.info("Loading E5 model (this may take time on first load)...")
         self.retriever = EmbeddingRetriever(
             document_store=self.document_store,
             embedding_model=EMBEDDING_MODEL,
@@ -35,7 +35,7 @@ class HaystackRetriever:
         # Track if we've done the initial expensive load
         self._model_warmed_up = False
         
-        logger.info("✅ Haystack retriever initialized")
+        logger.info("Haystack retriever initialized")
 
     def _ensure_model_loaded(self):
         """
@@ -49,7 +49,7 @@ class HaystackRetriever:
                 # For sentence transformers, ensure it's loaded
                 if hasattr(model, '_model') and hasattr(model._model, 'eval'):
                     model._model.eval()  # Put in eval mode
-                    logger.info("✅ E5 model forced to eval mode")
+                    logger.info("E5 model forced to eval mode")
                 
                 # Store reference to prevent garbage collection
                 self._cached_model = model
@@ -70,7 +70,7 @@ class HaystackRetriever:
         
         # First query detection - will be slow due to model loading
         if not self._model_warmed_up:
-            logger.info(f"🔥 First E5 query - this will be slow due to model loading...")
+            logger.info(f"First E5 query - this will be slow due to model loading...")
         
         # Perform retrieval
         docs = self.retriever.retrieve(query, top_k=top_k)
@@ -80,14 +80,14 @@ class HaystackRetriever:
         # Mark as warmed up after first query
         if not self._model_warmed_up:
             self._model_warmed_up = True
-            logger.info(f"✅ E5 model warmed up! First query took {elapsed:.2f}s")
-            logger.info("🚀 Subsequent queries should be much faster (2-5s)")
+            logger.info(f"E5 model warmed up! First query took {elapsed:.2f}s")
+            logger.info("Subsequent queries should be much faster (2-5s)")
         else:
             # This should be fast now
             if elapsed > 10:
-                logger.warning(f"⚠️ E5 query took {elapsed:.2f}s - model may have reloaded!")
+                logger.warning(f"E5 query took {elapsed:.2f}s - model may have reloaded!")
             else:
-                logger.info(f"⚡ E5 query took {elapsed:.2f}s (good!)")
+                logger.info(f"E5 query took {elapsed:.2f}s (good!)")
         
         return docs
 
